@@ -1,0 +1,20 @@
+{
+    "name": "cnblogs-blogs2markdown",
+    "description": "covert cnblogs blogs backup xml to markdown",
+    "url": "",
+    "keywords": "markdown",
+    "author": "greengerong",
+    "main": "index.js",
+    "version": "0.0.1",
+    "dependencies": {
+        "to-markdown": "*",
+        "xml2js": "*",
+        "date-utils": "*"
+    },
+    "devDependencies": {
+
+    },
+    "scripts": {
+
+    }
+}
