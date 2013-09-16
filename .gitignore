@@ -3,4 +3,4 @@
 .idea/
 *.iml
 node_modules/
-_post/
+_post/*.md
