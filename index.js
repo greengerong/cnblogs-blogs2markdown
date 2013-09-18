@@ -29,20 +29,21 @@ fs.readFile(file, encode, function (err, data) {
         console.log("all blogs " + blogs.length + " will be convert.");
         blogs.forEach(function (item) {
 
-            var pubDate = new Date(item.pubDate).toFormat("YYYY-MM-DD-HH-MI-SS");
+            var pubDate = new Date(item.pubDate).toFormat("YYYY-MM-DD");
 
-            var title = item.title[0].replace(/(\/)|(-+)|(\.)|(>)/g, "_").replace(/([\u4e00-\u9fa5])/g,function (matched, $1) {
-                return  "_" + pinYin($1, {
+            var replaceToUrlChats = /[^\w\u4e00-\u9fa5]/g;
+            var title = item.title[0].replace(replaceToUrlChats, "-").replace(/([\u4e00-\u9fa5])/g,function (matched, $1) {
+                return  "-" + pinYin($1, {
                         style: pinYin.STYLE_NORMAL,
                         heteronym: false
                     }
-                ).join("_") + "_";
-            }).replace(/_+/g, "_").replace(/(^_)|(_$)|(\s+)/g, "");
-            var file = pubDate + "_" + title + ".md";
+                ).join("-") + "-";
+            }).replace(/-+/g, "-").replace(/(^-)|(-$)|(\s+)/g, "");
+            var file = pubDate + "-" + title + ".md";
 
             var content = toMarkdown(item.description[0]);
 
-            var data = { title: item.title[0], markdown: content.trim(), url: item.guid[0]};
+            var data = { title: item.title[0], markdown: content.trim(), url: item.link[0]};
             var fileText = underscore.template(fs.readFileSync(templateFile, encode).trim(), data);
             fs.writeFile(output + file, fileText, {encoding: encode}, function (err) {
                 if (err) {
